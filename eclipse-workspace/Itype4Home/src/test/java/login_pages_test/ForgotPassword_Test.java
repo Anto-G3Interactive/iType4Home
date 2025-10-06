@@ -2,7 +2,6 @@ package login_pages_test;
 
 import java.io.IOException;
 import java.time.Duration;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 import base_packages.Initial_step;
 
@@ -10,7 +9,6 @@ public class ForgotPassword_Test extends Initial_step {
 	
 	Login_Page_Elements LPE;
 	String Mail="anto.g3interactive+superadmin@gmail.com";
-	WebDriverWait wait;
 	
 	
 	@Test (priority = 1)
@@ -147,7 +145,6 @@ public class ForgotPassword_Test extends Initial_step {
 		LPE.Click_forgotpassword_continue_button();
 		Thread.sleep(2000);
 		
-		wait=new WebDriverWait(driver, Duration.ofSeconds(10));
 		Thread.sleep(2000);
 	
 		if(LPE.Verify_Reset_Password_Link().isDisplayed())

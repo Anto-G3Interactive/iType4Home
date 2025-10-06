@@ -49,22 +49,18 @@ public class Login_Page_Elements extends Initial_step
 		ClearAndEnterValue(p, Password);
 	}
 	
-	public void Click_CheckboxRememberme()
+	public void Click_CheckboxRememberme(String EnableOrDisable)
 	{
 		WebElement Rememberme=driver.findElement(By.xpath("//input[@id='rememberMe']"));
-		WebElement unchecked=driver.findElement(By.xpath("(//div[@class='not-checked'])[1]"));
-		if(unchecked.isDisplayed())
+		
+		if(EnableOrDisable.toLowerCase().contains("enable") && !Rememberme.isSelected())
 		{
-			driver.findElement(By.xpath("//input[@name='rememberMe']"));
 			Rememberme.click();
-			testcase.log(FAIL, "Checkbox is checked Succesfully");
 		}
-		else
+		else if(EnableOrDisable.toLowerCase().contains("disable") && Rememberme.isSelected())
 		{
-			testcase.log(FAIL, "Checkbox is not checked");
-			
-		}
-			
+			Rememberme.click();			
+		}			
 	}
 	
 	public void ClickSigninButton()
