@@ -5,9 +5,9 @@
     <classes>
       <class name="login_pages_test.ForgotPassword_Test">
         <methods>
+          <include name="Verify_Resetpassword_link_is_sent"/>
           <include name="close"/>
           <include name="Login"/>
-          <include name="click_backto_signin_button"/>
         </methods>
       </class> <!-- login_pages_test.ForgotPassword_Test -->
     </classes>
