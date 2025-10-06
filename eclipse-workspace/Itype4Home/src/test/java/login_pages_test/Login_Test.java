@@ -30,7 +30,7 @@ public class Login_Test extends Initial_step
 		LPE.EnterEmailID(Mail);
 		LPE.EnterPassword(Password);
 		Thread.sleep(1000);
-		LPE.Click_CheckboxRememberme();
+		LPE.Click_CheckboxRememberme("enable");
 		LPE.ClickSigninButton();
 		Thread.sleep(1000);
 		
@@ -69,7 +69,7 @@ public class Login_Test extends Initial_step
 		LPE.EnterPassword(Password);
 		Thread.sleep(2000);
 		
-		LPE.Click_CheckboxRememberme();
+		LPE.Click_CheckboxRememberme("enable");
 		LPE.ClickSigninButton();
 		Thread.sleep(2000);
 		
@@ -105,7 +105,7 @@ public class Login_Test extends Initial_step
 		
 		testcase= extendReport.createTest("Verify validation messege is Working");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-		LPE.Click_CheckboxRememberme();
+		LPE.Click_CheckboxRememberme("enable");
 		LPE.ClickSigninButton();
 		takescreenshot(driver, "Validation Messege");
 		

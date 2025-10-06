@@ -2,9 +2,6 @@ package login_pages_test;
 
 import java.io.IOException;
 import java.time.Duration;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 import base_packages.Initial_step;
 
