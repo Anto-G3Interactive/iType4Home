@@ -128,20 +128,6 @@ public class Login_Test extends Initial_step
 			
 		}
 	}
-	
-	
-		
-	
-	
-	
-	
-
-			
-			
-		
-		
-		
-		
 		
 	}
 	

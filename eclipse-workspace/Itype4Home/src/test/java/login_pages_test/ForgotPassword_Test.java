@@ -9,7 +9,7 @@ public class ForgotPassword_Test extends Initial_step {
 	
 	Login_Page_Elements LPE;
 	String Mail="anto.g3interactive+superadmin@gmail.com";
-	
+	String Invalidemailid="demo.com";	
 	
 	@Test (priority = 1)
 	public void Check_Forgot_Password_button_IS_Working() throws IOException, InterruptedException
@@ -145,8 +145,6 @@ public class ForgotPassword_Test extends Initial_step {
 		LPE.Click_forgotpassword_continue_button();
 		Thread.sleep(2000);
 		
-		Thread.sleep(2000);
-	
 		if(LPE.Verify_Reset_Password_Link().isDisplayed())
 		{
 			takescreenshot(driver, "The Success Messege is displayed Succesfuly" );
@@ -164,6 +162,41 @@ public class ForgotPassword_Test extends Initial_step {
 		
 	
 
+	}
+	
+	@Test (priority = 6)
+	public void Enter_Invalid_emailID() throws InterruptedException, IOException
+	{
+		
+		LPE= new Login_Page_Elements(driver, testcase);
+		Logout();
+		Thread.sleep(1000);
+		
+		testcase= extendReport.createTest("Using Invalid Emailid");
+		
+		Thread.sleep(2000);
+		LPE.Click_forgot_password();
+		Thread.sleep(2000);
+		LPE.Enter_forgotpassword_emailID(Invalidemailid);
+		Thread.sleep(2000);
+		LPE.Click_forgotpassword_continue_button();
+		Thread.sleep(2000);
+		
+		if(LPE.Verify_validationMessage_Email().isDisplayed())
+		{
+			takescreenshot(driver, "The validation messege is succesfuly Displayed" );
+			testcase.log(PASS, "The validation messege is succesfuly Displayed");
+			Thread.sleep(2000);
+			
+		}
+		else
+		{
+			testcase.log(FAIL, "messege is not displayed");
+			Thread.sleep(2000);
+			takescreenshot(driver, "failed");
+		}
+		
+		
 	}
 	
 	

@@ -11,12 +11,14 @@ import java.util.Properties;
 import java.util.Scanner;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -37,6 +39,9 @@ public class Initial_step
 	public Status FAIL=Status.FAIL;
 	public Status INFO=Status.INFO;
 	public SoftAssert softAssert;
+	public  WebDriverWait wait;
+	public JavascriptExecutor js;
+	
 	
 	@BeforeClass
 	public void Login()throws IOException, InterruptedException 
@@ -55,40 +60,43 @@ public class Initial_step
 		driver=new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+		wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		
 		testcase= extendReport.createTest("Veify the Login Process");
 		driver.get(dashboard);
 		testcase.log(Status.INFO,"Navigating To Dashboard Page to confirm the login");
 		Thread.sleep(1000);
+		wait.until(webDriver -> ((JavascriptExecutor) webDriver)
+        .executeScript("return document.readyState").equals("complete"));
 	    String currenturl= driver.getCurrentUrl();
 	  
 		String Otpurl="http://13.239.43.115/otp-verification";
-	
+		
 			if(currenturl.equals(url))
 			{
 				WebElement email=driver.findElement(By.xpath("//input[@name='email']"));
 				email.sendKeys(eemail);
-				Thread.sleep(2000);
+				Thread.sleep(500);
 				WebElement password=driver.findElement(By.xpath("//input[@name='password']"));
 			    password.sendKeys(pass);
-			    Thread.sleep(2000);
-				//driver.findElement(By.xpath("//input[@name='rememberMe']")).click();
-				Thread.sleep(2000);
+			    Thread.sleep(500);
+				driver.findElement(By.xpath("//input[@name='rememberMe']")).click();
+				Thread.sleep(1000);
 				driver.findElement(By.xpath("//button[@type='submit']")).click();
-				Thread.sleep(2000);
+				Thread.sleep(1000);
+				wait.until(webDriver -> ((JavascriptExecutor) webDriver)
+				.executeScript("return document.readyState").equals("complete"));
 				String curl=driver.getCurrentUrl();
-				Thread.sleep(100);
-				testcase.log(PASS, "Successfully logged-in");
-								
-				if(dashboard.equals(curl)&&(driver.findElement(By.xpath("//*[@id=\"root\"]/section[2]/main/div/div/p")).isDisplayed()))
+				Thread.sleep(1000);
+				
+				if(dashboard.equals(curl))
 				{
 					testcase.log(PASS,"Successfully logged-in");
+					takescreenshot(driver, "Succesfully Logged In");
 				}
 				else if(Otpurl.equals(curl)) 
-				{
-					
-						
-						testcase.log(INFO, "Please enter the OTP manually and re-run the code");
+				{	
+						testcase.log(INFO, "Please enter the OTP manually to Console");
 						Thread.sleep(1000);
 						
 						Scanner scr=new Scanner(System.in);
@@ -96,15 +104,16 @@ public class Initial_step
 						System.out.println("Please enter the OTP: ");
 						String otp= scr.nextLine();
 						
-						Thread.sleep(1000);
 						testcase.log(INFO, "The Entered OTP is: "+ otp);
 						WebElement EnterOTP=driver.findElement(By.xpath("//input[@inputmode]"));
 						EnterOTP.sendKeys(otp);
 					    driver.findElement(By.xpath("//button[@type='submit']")).click();
+					    takescreenshot(driver, "Enter OTP");
 					    scr.close();
 				}
 				else
 				{
+					takescreenshot(driver, "Login Failed");
 					testcase.log(FAIL, "Login Failed!. Did not redirected to the Dashboard page.");
 					
 				}
@@ -113,12 +122,15 @@ public class Initial_step
 			else if (currenturl.equals(dashboard))
 		    {
 				testcase.log(PASS, "Successfully logged-in");
+				takescreenshot(driver,"Succesfully Logged in");
 		    }
 			
 			else
 			{
 				testcase.log(FAIL, "Login Failed");
+				takescreenshot(driver, "Login FAiled");
 			}  
+			
 		spark= new ExtentSparkReporter("ExtentReport.html");
 		extendReport.attachReporter(spark);	
 		softAssert = new SoftAssert();

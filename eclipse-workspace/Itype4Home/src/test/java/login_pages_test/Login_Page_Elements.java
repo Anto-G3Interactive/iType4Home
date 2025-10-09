@@ -10,7 +10,6 @@ public class Login_Page_Elements extends Initial_step
 {
 	WebDriver driver;
 	ExtentTest testcase;
-	String Resetpassword="http://13.239.43.115/reset-password/kiCxHkvZuW93yP6eqAYcvsV9gwU8ZQSecerRKKIJsnw6Kry62ioOIa0x9CQzCOOt";
 	
 	public Login_Page_Elements(WebDriver driver, ExtentTest testcase)
 	{
@@ -351,11 +350,7 @@ public class Login_Page_Elements extends Initial_step
 		driver.findElement(By.xpath("//button[@type='submit']")).click();
 	}
 	
-	public WebElement ResetPage_varification()
 	
-	{
-		return driver.findElement(By.xpath(Resetpassword));
-	}
 	
 	
 	

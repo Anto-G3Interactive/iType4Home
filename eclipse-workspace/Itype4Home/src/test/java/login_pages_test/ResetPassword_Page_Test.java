@@ -1,7 +1,6 @@
 package login_pages_test;
 
 import java.io.IOException;
-
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 
